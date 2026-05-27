@@ -1,0 +1,13 @@
+---
+interface Props {
+  label: string;
+  variant?: "default" | "area" | "ac";
+}
+
+const { label, variant = "default" } = Astro.props;
+
+const variantClass =
+  variant === "area" ? "badge--area" : variant === "ac" ? "badge--ac" : "";
+---
+
+<span class={`badge ${variantClass}`}>{label}</span>
