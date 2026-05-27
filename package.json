@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "check": "astro check",
+    "validate:content": "tsx scripts/validate-content.ts",
     "build": "astro build",
     "preview": "astro preview"
   },
@@ -13,6 +14,8 @@
     "astro": "latest"
   },
   "devDependencies": {
+    "@astrojs/check": "latest",
+    "tsx": "latest",
     "typescript": "latest"
   }
 }
