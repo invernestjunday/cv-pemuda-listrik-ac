@@ -1,0 +1,41 @@
+---
+import { ctas, type CtaId } from "../../data/cta";
+import { createWhatsappLink } from "../../utils/whatsapp";
+
+type CtaPosition =
+  | "header"
+  | "hero"
+  | "section"
+  | "cta-final"
+  | "footer"
+  | "floating-desktop"
+  | "bottom-mobile";
+
+interface Props {
+  ctaId: CtaId;
+  position: CtaPosition;
+  className?: string;
+  labelOverride?: string;
+}
+
+const { ctaId, position, className = "", labelOverride } = Astro.props;
+const cta = ctas[ctaId];
+const href = createWhatsappLink(cta.message);
+const label = labelOverride ?? cta.label;
+---
+
+<a
+  href={href}
+  class={`btn btn--whatsapp ${className}`}
+  target="_blank"
+  rel="noopener noreferrer"
+  data-cta-id={cta.id}
+  data-cta-position={position}
+  data-service-type={cta.serviceType}
+  data-area={cta.area ?? "global"}
+  data-destination="whatsapp"
+  data-tracking-name={cta.trackingName}
+>
+  <span class="btn__icon" aria-hidden="true">WA</span>
+  <span>{label}</span>
+</a>

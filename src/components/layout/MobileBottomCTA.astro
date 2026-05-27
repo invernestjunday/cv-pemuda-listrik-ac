@@ -1,0 +1,18 @@
+---
+import type { CtaId } from "../../data/cta";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+
+interface Props {
+  ctaId: CtaId;
+}
+
+const { ctaId } = Astro.props;
+---
+
+<div class="mobile-bottom-cta">
+  <WhatsAppButton
+    ctaId={ctaId}
+    position="bottom-mobile"
+    className="btn--full"
+  />
+</div>

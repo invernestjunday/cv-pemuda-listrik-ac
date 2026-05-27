@@ -1,0 +1,15 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { localElectricPages } from "../data/pages/local-electric";
+
+export function getStaticPaths() {
+  return localElectricPages.map((page) => ({
+    params: { area: page.areaSlug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<PageLayout page={page} />

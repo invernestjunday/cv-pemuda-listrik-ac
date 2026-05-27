@@ -1,0 +1,15 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import { localAcPages } from "../data/pages/local-ac";
+
+export function getStaticPaths() {
+  return localAcPages.map((page) => ({
+    params: { area: page.areaSlug },
+    props: { page }
+  }));
+}
+
+const { page } = Astro.props;
+---
+
+<PageLayout page={page} />

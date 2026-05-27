@@ -1,0 +1,18 @@
+---
+import type { CtaId } from "../../data/cta";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+
+interface Props {
+  ctaId: CtaId;
+}
+
+const { ctaId } = Astro.props;
+---
+
+<div class="floating-wa">
+  <WhatsAppButton
+    ctaId={ctaId}
+    position="floating-desktop"
+    labelOverride="Konsultasi WA"
+  />
+</div>

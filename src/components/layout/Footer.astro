@@ -1,0 +1,43 @@
+---
+import { site } from "../../data/site";
+import { footerNav } from "../../data/navigation";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <h2 class="site-footer__title">{site.siteName}</h2>
+      <p class="site-footer__text">
+        Jasa listrik dan AC panggilan untuk rumah, ruko, toko, kantor kecil,
+        kos, kontrakan, dan apartemen di Jakarta, Tangerang Selatan, dan
+        Tangerang Kota.
+      </p>
+      <div class="site-footer__cta">
+        <WhatsAppButton ctaId="globalWhatsapp" position="footer" />
+      </div>
+    </div>
+
+    {footerNav.map((group) => (
+      <nav aria-label={group.title}>
+        <h3 class="site-footer__title">{group.title}</h3>
+        <ul class="site-footer__links">
+          {group.links.map((link) => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+
+    <div>
+      <h3 class="site-footer__title">Kontak</h3>
+      <p class="site-footer__text">WhatsApp: Konsultasi via WhatsApp</p>
+      <p class="site-footer__text">Jam Layanan: {site.openingHoursLabel}</p>
+      <p class="site-footer__text">Area: {site.serviceAreas.join(", ")}</p>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    © 2026 CV Pemuda Listrik & AC. Semua hak dilindungi.
+  </div>
+</footer>

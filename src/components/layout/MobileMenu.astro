@@ -1,0 +1,34 @@
+---
+import { mainNav } from "../../data/navigation";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+---
+
+<nav id="mobile-menu" class="mobile-menu" aria-label="Navigasi mobile" hidden>
+  <div class="container mobile-menu__inner">
+    {mainNav.map((item) => (
+      <div class="mobile-menu__group">
+        {item.children ? (
+          <>
+            <p class="mobile-menu__label">{item.label}</p>
+            {item.children.map((child) => (
+              <a href={child.href} class="mobile-menu__link">
+                {child.label}
+              </a>
+            ))}
+          </>
+        ) : (
+          <a href={item.href} class="mobile-menu__link">
+            {item.label}
+          </a>
+        )}
+      </div>
+    ))}
+
+    <div class="mobile-menu__cta">
+      <WhatsAppButton ctaId="globalWhatsapp" position="header" className="btn--full" />
+      <p class="mobile-menu__note">
+        Sertakan lokasi dan kendala agar arahan awal lebih jelas.
+      </p>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,20 @@
+---
+import MetaTags from "../components/seo/MetaTags.astro";
+import "../styles/global.css";
+import type { PageData } from "../data/types";
+
+interface Props {
+  page: PageData;
+}
+
+const { page } = Astro.props;
+---
+
+<html lang="id">
+  <head>
+    <MetaTags seo={page.seo} />
+  </head>
+  <body data-page-type={page.type} class="has-mobile-bottom-cta">
+    <slot />
+  </body>
+</html>
