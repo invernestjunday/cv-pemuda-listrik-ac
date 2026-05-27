@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="80" viewBox="0 0 320 80" role="img" aria-labelledby="title">
+  <title id="title">CV Pemuda Listrik &amp; AC</title>
+  <rect width="320" height="80" rx="20" fill="#eff6ff"/>
+  <circle cx="42" cy="40" r="22" fill="#2563eb"/>
+  <path d="M45 16 27 44h15l-5 20 22-32H44l1-16Z" fill="#fff"/>
+  <text x="78" y="36" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#1e40af">CV Pemuda</text>
+  <text x="78" y="58" font-family="Arial, sans-serif" font-size="16" fill="#111827">Listrik &amp; AC</text>
+</svg>

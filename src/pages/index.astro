@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+---
+
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{site.siteName}</title>
+    <meta
+      name="description"
+      content="Preview awal website CV Pemuda Listrik & AC."
+    />
+  </head>
+  <body>
+    <main class="preview-shell">
+      <div class="container">
+        <section class="preview-card" aria-labelledby="preview-title">
+          <span class="preview-badge">Astro Preview Baseline</span>
+          <h1 id="preview-title" class="preview-title">{site.siteName}</h1>
+          <p class="preview-text">
+            Preview awal project Astro untuk website jasa listrik dan AC.
+            Deployment preview menggunakan GitHub Pages, production final
+            menggunakan Cloudflare Pages.
+          </p>
+          <div class="preview-actions">
+            <a class="preview-button" href="#" aria-label="Tombol preview WhatsApp">
+              Konsultasi via WhatsApp
+            </a>
+            <a class="preview-link" href="https://docs.astro.build/" target="_blank" rel="noopener noreferrer">
+              Dokumentasi Astro
+            </a>
+          </div>
+          <p class="preview-note">
+            Ganti <code>username</code> dan <code>nama-repo</code> di
+            <code>astro.config.mjs</code> serta <code>src/data/site.ts</code>
+            sebelum mengaktifkan GitHub Pages preview.
+          </p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

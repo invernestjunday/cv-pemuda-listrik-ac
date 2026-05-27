@@ -1,0 +1,14 @@
+{
+  "name": "CV Pemuda Listrik & AC",
+  "short_name": "CV Pemuda",
+  "icons": [
+    {
+      "src": "/favicon/icon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

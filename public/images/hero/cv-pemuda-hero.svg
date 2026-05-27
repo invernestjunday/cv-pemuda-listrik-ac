@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" role="img" aria-labelledby="title desc">
+  <title id="title">Ilustrasi layanan listrik dan AC</title>
+  <desc id="desc">Ilustrasi sederhana ikon listrik dan AC untuk CV Pemuda.</desc>
+  <rect width="640" height="420" rx="32" fill="#eff6ff"/>
+  <rect x="92" y="90" width="456" height="240" rx="28" fill="#fff" stroke="#dbeafe"/>
+  <circle cx="230" cy="210" r="68" fill="#2563eb" opacity="0.95"/>
+  <path d="M240 146 198 220h34l-12 54 52-88h-37l5-40Z" fill="#fff"/>
+  <rect x="330" y="152" width="150" height="100" rx="18" fill="#ecfeff" stroke="#a5f3fc"/>
+  <path d="M356 184h98" stroke="#1e40af" stroke-width="10" stroke-linecap="round"/>
+  <path d="M364 218c20 14 62 14 82 0" stroke="#1e40af" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>
