@@ -139,6 +139,20 @@ export function validatePageData(
       throw new Error(`Service schema aktif tetapi serviceType kosong: ${page.slug}`);
     }
 
+    if (page.type !== "local-service" && page.sections.length === 0) {
+      throw new Error(`Halaman utama wajib punya sections: ${page.slug}`);
+    }
+
+    if (page.type === "service" && !page.serviceType) {
+      throw new Error(`Halaman service wajib punya serviceType: ${page.slug}`);
+    }
+
+    for (const section of page.sections) {
+      if (section.type === "faq" && section.faq.length === 0) {
+        throw new Error(`Section FAQ kosong: ${page.slug}`);
+      }
+    }
+
     if (page.type === "local-service") {
       if (!page.area || !page.areaId) {
         throw new Error(`Halaman lokal belum punya area lengkap: ${page.slug}`);

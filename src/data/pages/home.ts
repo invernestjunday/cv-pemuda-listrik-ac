@@ -33,7 +33,7 @@ export const homePage = {
       id: "layanan",
       title: "Layanan Listrik dan AC",
       description:
-        "Pilih layanan yang sesuai dengan kebutuhan Anda. Konsultasi awal dilakukan melalui WhatsApp agar kebutuhan, lokasi, dan kondisi bisa dibahas lebih jelas.",
+        "Pilih layanan yang sesuai dengan kebutuhan Anda. Konsultasi awal dilakukan melalui WhatsApp agar lokasi, kendala, dan kebutuhan bisa dibahas lebih jelas.",
       services: [
         {
           id: "jasa-listrik",
@@ -51,7 +51,7 @@ export const homePage = {
           id: "jasa-ac",
           title: "Jasa AC",
           description:
-            "Konsultasi cuci AC, AC tidak dingin, AC bocor, isi atau tambah freon, instalasi, bongkar pasang, dan relokasi AC.",
+            "Konsultasi cuci AC, AC tidak dingin, AC bocor, freon, instalasi, bongkar pasang, dan relokasi AC.",
           primaryCtaId: "acGeneral",
           secondaryLink: {
             label: "Lihat Detail Layanan AC",
@@ -63,37 +63,19 @@ export const homePage = {
     },
     {
       type: "problem-grid",
-      id: "masalah-listrik",
-      title: "Masalah Listrik yang Bisa Dikonsultasikan",
+      id: "fokus-listrik",
+      title: "Kebutuhan Listrik yang Sering Dikonsultasikan",
       description:
-        "Beberapa kendala listrik membutuhkan pengecekan agar penyebabnya lebih jelas sebelum pengerjaan dilakukan.",
-      items: electricProblems.slice(0, 3),
-      serviceType: "electric"
-    },
-    {
-      type: "problem-grid",
-      id: "masalah-ac",
-      title: "Masalah AC yang Bisa Dikonsultasikan",
-      description:
-        "Kondisi AC seperti tidak dingin, bocor, atau berisik bisa dikonsultasikan terlebih dahulu melalui WhatsApp.",
-      items: acProblems.slice(0, 3),
-      serviceType: "ac"
-    },
-    {
-      type: "category-grid",
-      id: "kategori-layanan-listrik",
-      title: "Kategori Layanan Listrik",
-      description:
-        "Ruang lingkup layanan listrik mencakup instalasi, perbaikan, proteksi dasar, pengecekan, dan penambahan titik.",
-      items: electricCategories.slice(0, 3),
+        "Kendala listrik perlu dipahami dari kondisi instalasi, beban, titik gangguan, dan kebutuhan lokasi. Konsultasi awal membantu menentukan langkah yang lebih tepat.",
+      items: electricProblems.slice(0, 6),
       serviceType: "electric"
     },
     {
       type: "category-grid",
-      id: "kategori-layanan-ac",
-      title: "Kategori Layanan AC",
+      id: "ringkasan-layanan-ac",
+      title: "Layanan AC untuk Kenyamanan Ruangan",
       description:
-        "Ruang lingkup layanan AC mencakup perawatan, perbaikan, freon atau pendinginan, instalasi, dan relokasi unit.",
+        "Layanan AC dapat dikonsultasikan untuk kebutuhan perawatan, perbaikan, pendinginan, pemasangan, dan relokasi unit.",
       items: acCategories.slice(0, 3),
       serviceType: "ac"
     },
@@ -102,7 +84,7 @@ export const homePage = {
       id: "jenis-lokasi",
       title: "Jenis Lokasi yang Dilayani",
       description:
-        "Layanan difokuskan untuk kebutuhan hunian dan usaha kecil di area layanan CV Pemuda.",
+        "CV Pemuda melayani kebutuhan listrik dan AC untuk hunian dan usaha kecil di area layanan utama.",
       items: [
         {
           id: "hunian",
@@ -123,18 +105,12 @@ export const homePage = {
       ]
     },
     {
-      type: "education-split",
-      id: "kenapa-konsultasi-awal",
-      title: "Kenapa Konsultasi Awal Penting?",
-      body: [
-        "Kondisi listrik dan AC sering berbeda antara satu lokasi dengan lokasi lain. Karena itu, konsultasi awal membantu memahami kebutuhan sebelum jadwal dan pengerjaan dibahas lebih jauh.",
-        "Pelanggan dapat mengirim lokasi, foto, video, dan penjelasan kendala melalui WhatsApp agar arahan awal lebih jelas."
-      ],
-      highlightTitle: "Informasi yang Sebaiknya Dikirim",
-      highlightDescription:
-        "Semakin jelas informasi awal yang dikirim, semakin mudah kebutuhan dibahas.",
-      points: ["Lokasi detail", "Jenis kebutuhan", "Foto atau video jika ada"],
-      ctaId: "globalWhatsapp"
+      type: "trust-grid",
+      id: "kenapa-pilih-cv-pemuda",
+      title: "Kenapa Pilih CV Pemuda?",
+      description:
+        "CV Pemuda mengutamakan komunikasi yang jelas, konsultasi yang mudah dimulai, dan pengerjaan yang menyesuaikan kondisi lapangan atau unit.",
+      items: trustPoints
     },
     {
       type: "consultation-steps",
@@ -157,6 +133,12 @@ export const homePage = {
         },
         {
           number: 3,
+          title: "Kirim Foto atau Video Jika Ada",
+          description:
+            "Foto atau video membantu menjelaskan kondisi awal sebelum jadwal dibahas."
+        },
+        {
+          number: 4,
           title: "Diskusi Kebutuhan",
           description:
             "Kebutuhan akan dibahas berdasarkan informasi awal yang dikirim."
@@ -215,29 +197,34 @@ export const homePage = {
       ]
     },
     {
-      type: "trust-grid",
-      id: "kenapa-pilih-cv-pemuda",
-      title: "Kenapa Pilih CV Pemuda?",
+      type: "internal-links",
+      id: "halaman-seo-lokal",
+      title: "Lihat Layanan Berdasarkan Area",
       description:
-        "CV Pemuda mengutamakan komunikasi yang jelas, area layanan yang terarah, dan konsultasi yang mudah dimulai.",
-      items: trustPoints
+        "Pilih halaman area untuk melihat informasi layanan listrik dan AC yang lebih sesuai dengan lokasi Anda.",
+      links: [
+        { label: "Jasa Listrik Jakarta", href: "/jasa-listrik-jakarta/" },
+        {
+          label: "Jasa Listrik Tangerang Selatan",
+          href: "/jasa-listrik-tangerang-selatan/"
+        },
+        {
+          label: "Jasa Listrik Tangerang Kota",
+          href: "/jasa-listrik-tangerang-kota/"
+        },
+        { label: "Jasa AC Jakarta", href: "/jasa-ac-jakarta/" },
+        {
+          label: "Jasa AC Tangerang Selatan",
+          href: "/jasa-ac-tangerang-selatan/"
+        },
+        { label: "Jasa AC Tangerang Kota", href: "/jasa-ac-tangerang-kota/" }
+      ]
     },
     {
       type: "faq",
       id: "faq-beranda",
       title: "Pertanyaan Umum",
       faq: homeFaq
-    },
-    {
-      type: "internal-links",
-      id: "link-halaman-penting",
-      title: "Halaman Penting Lainnya",
-      links: [
-        { label: "Layanan Listrik", href: "/layanan-listrik/" },
-        { label: "Layanan AC", href: "/layanan-ac/" },
-        { label: "Konsultasi Biaya", href: "/konsultasi-biaya/" },
-        { label: "Kontak", href: "/kontak/" }
-      ]
     },
     {
       type: "cta",
@@ -247,7 +234,7 @@ export const homePage = {
         "Kirim lokasi dan kebutuhan Anda melalui WhatsApp agar konsultasi awal bisa dibahas lebih jelas.",
       primaryCtaId: "globalWhatsapp",
       secondaryLink: {
-        label: "Lihat Kontak",
+        label: "Hubungi CV Pemuda",
         href: "/kontak/"
       }
     }
