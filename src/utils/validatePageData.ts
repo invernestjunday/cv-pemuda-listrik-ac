@@ -65,6 +65,10 @@ function validateSectionLinks(pageSlug: string, section: PageSection) {
   }
 }
 
+function hasSection(page: PageData, type: PageSection["type"]) {
+  return page.sections.some((section) => section.type === type);
+}
+
 export function validatePageData(
   pages: PageData[],
   ctas: Record<string, CtaConfig>
@@ -139,8 +143,8 @@ export function validatePageData(
       throw new Error(`Service schema aktif tetapi serviceType kosong: ${page.slug}`);
     }
 
-    if (page.type !== "local-service" && page.sections.length === 0) {
-      throw new Error(`Halaman utama wajib punya sections: ${page.slug}`);
+    if (page.sections.length === 0) {
+      throw new Error(`Halaman wajib punya sections: ${page.slug}`);
     }
 
     if (page.type === "service" && !page.serviceType) {
@@ -172,6 +176,28 @@ export function validatePageData(
 
       if (!page.faq || page.faq.length < 5) {
         throw new Error(`FAQ lokal minimal 5 item: ${page.slug}`);
+      }
+
+      if (!hasSection(page, "internal-links")) {
+        throw new Error(`Halaman lokal wajib punya internal-links: ${page.slug}`);
+      }
+
+      if (!hasSection(page, "cta")) {
+        throw new Error(`Halaman lokal wajib punya CTA section: ${page.slug}`);
+      }
+
+      if (!hasSection(page, "problem-grid") || !hasSection(page, "category-grid")) {
+        throw new Error(
+          `Halaman lokal wajib punya problem-grid dan category-grid: ${page.slug}`
+        );
+      }
+
+      if (page.serviceType === "electric" && !page.hero.primaryCtaId.startsWith("electric")) {
+        throw new Error(`CTA hero listrik lokal tidak sesuai: ${page.slug}`);
+      }
+
+      if (page.serviceType === "ac" && !page.hero.primaryCtaId.startsWith("ac")) {
+        throw new Error(`CTA hero AC lokal tidak sesuai: ${page.slug}`);
       }
     }
 
