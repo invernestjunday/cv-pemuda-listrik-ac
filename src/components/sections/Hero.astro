@@ -1,0 +1,74 @@
+---
+import type {
+  AreaName,
+  BreadcrumbItem,
+  HeroData,
+  PageType,
+  ServiceType
+} from "../../data/types";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+import ButtonLink from "../ui/ButtonLink.astro";
+import Badge from "../ui/Badge.astro";
+
+interface Props {
+  hero: HeroData;
+  pageType: PageType;
+  serviceType?: ServiceType;
+  area?: AreaName | null;
+  breadcrumb?: BreadcrumbItem[];
+}
+
+const { hero, pageType, serviceType, area, breadcrumb } = Astro.props;
+const isAc = serviceType === "ac";
+const visualLabel = area ?? "Jakarta • Tangerang Selatan • Tangerang Kota";
+---
+
+<section class={`hero ${isAc ? "hero--ac" : ""}`} data-page-type={pageType}>
+  <div class="container hero__grid">
+    <div class="hero__content">
+      {breadcrumb && breadcrumb.length > 0 && (
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol class="breadcrumb__list">
+            {breadcrumb.map((item, index) => (
+              <li class="breadcrumb__item">
+                {index > 0 && <span class="breadcrumb__separator" aria-hidden="true">/</span>}
+                {index === breadcrumb.length - 1 ? (
+                  <span aria-current="page">{item.label}</span>
+                ) : (
+                  <a href={item.href}>{item.label}</a>
+                )}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
+      {hero.badge && (
+        <div class="hero__badge">
+          <Badge label={hero.badge} variant={isAc ? "ac" : "area"} />
+        </div>
+      )}
+
+      <h1 class="hero__title">{hero.h1}</h1>
+      <p class="hero__description">{hero.subheadline}</p>
+
+      <div class="hero__actions">
+        <WhatsAppButton ctaId={hero.primaryCtaId as any} position="hero" />
+        {hero.secondaryCta && (
+          <ButtonLink
+            href={hero.secondaryCta.href}
+            label={hero.secondaryCta.label}
+            variant="secondary"
+          />
+        )}
+      </div>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="hero__visual-card">
+        <span class="hero__visual-icon">{isAc ? "AC" : "⚡"}</span>
+        <p>{visualLabel}</p>
+      </div>
+    </div>
+  </div>
+</section>

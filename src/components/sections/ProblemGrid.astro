@@ -1,0 +1,24 @@
+---
+import type { CardItem, ServiceType } from "../../data/types";
+import SectionHeader from "../ui/SectionHeader.astro";
+import ProblemCard from "../cards/ProblemCard.astro";
+
+interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  items: CardItem[];
+  serviceType?: ServiceType;
+}
+
+const { id, title, description, items, serviceType } = Astro.props;
+---
+
+<section class="section section--muted" id={id}>
+  <div class="container">
+    <SectionHeader title={title} description={description} />
+    <div class="grid grid--cards">
+      {items.map((item) => <ProblemCard item={item} serviceType={serviceType} />)}
+    </div>
+  </div>
+</section>

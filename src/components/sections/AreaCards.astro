@@ -1,0 +1,23 @@
+---
+import type { AreaCardData } from "../../data/types";
+import SectionHeader from "../ui/SectionHeader.astro";
+import AreaCard from "../cards/AreaCard.astro";
+
+interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  areas: AreaCardData[];
+}
+
+const { id, title, description, areas } = Astro.props;
+---
+
+<section class="section section--muted" id={id}>
+  <div class="container">
+    <SectionHeader title={title} description={description} />
+    <div class="grid grid--cards">
+      {areas.map((item) => <AreaCard item={item} />)}
+    </div>
+  </div>
+</section>

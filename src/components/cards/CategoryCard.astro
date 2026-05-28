@@ -1,0 +1,23 @@
+---
+import type { CategoryItem, ServiceType } from "../../data/types";
+
+interface Props {
+  item: CategoryItem;
+  serviceType?: ServiceType;
+}
+
+const { item, serviceType } = Astro.props;
+const iconClass = serviceType === "ac" ? "card__icon card__icon--ac" : "card__icon";
+---
+
+<article class="card">
+  <span class={iconClass} aria-hidden="true">{item.icon ?? "•"}</span>
+  <h3 class="card__title">{item.title}</h3>
+  <p class="card__description">{item.description}</p>
+
+  {item.items.length > 0 && (
+    <ul class="card__list">
+      {item.items.map((entry) => <li>{entry}</li>)}
+    </ul>
+  )}
+</article>

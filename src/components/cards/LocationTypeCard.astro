@@ -1,0 +1,19 @@
+---
+import type { LocationTypeCardData } from "../../data/types";
+
+interface Props {
+  item: LocationTypeCardData;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="card">
+  <span class="card__icon" aria-hidden="true">{item.icon ?? "⌂"}</span>
+  <h3 class="card__title">{item.title}</h3>
+  <p class="card__description">{item.description}</p>
+
+  <ul class="chip-list">
+    {item.locations.map((location) => <li>{location}</li>)}
+  </ul>
+</article>

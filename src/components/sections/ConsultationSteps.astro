@@ -1,0 +1,23 @@
+---
+import type { StepItem } from "../../data/types";
+import SectionHeader from "../ui/SectionHeader.astro";
+import StepCard from "../cards/StepCard.astro";
+
+interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  steps: StepItem[];
+}
+
+const { id, title, description, steps } = Astro.props;
+---
+
+<section class="section section--white" id={id}>
+  <div class="container">
+    <SectionHeader title={title} description={description} />
+    <div class="grid grid--cards">
+      {steps.map((step) => <StepCard step={step} />)}
+    </div>
+  </div>
+</section>

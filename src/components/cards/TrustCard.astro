@@ -1,0 +1,15 @@
+---
+import type { CardItem } from "../../data/types";
+
+interface Props {
+  item: CardItem;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="card">
+  <span class="card__icon" aria-hidden="true">{item.icon ?? "✓"}</span>
+  <h3 class="card__title">{item.title}</h3>
+  <p class="card__description">{item.description}</p>
+</article>

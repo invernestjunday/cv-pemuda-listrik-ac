@@ -1,0 +1,57 @@
+---
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+
+interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  body: string[];
+  highlightTitle?: string;
+  highlightDescription?: string;
+  ctaId?: string;
+  points?: string[];
+}
+
+const {
+  id,
+  title,
+  description,
+  body,
+  highlightTitle,
+  highlightDescription,
+  ctaId,
+  points
+} = Astro.props;
+---
+
+<section class="section section--muted" id={id}>
+  <div class="container split">
+    <div>
+      <h2 class="section__title">{title}</h2>
+      {description && <p class="section__description">{description}</p>}
+
+      <div class="rich-text">
+        {body.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </div>
+
+    <aside class="card education-card">
+      {highlightTitle && <h3 class="card__title">{highlightTitle}</h3>}
+      {highlightDescription && (
+        <p class="card__description">{highlightDescription}</p>
+      )}
+
+      {points && points.length > 0 && (
+        <ul class="card__list">
+          {points.map((point) => <li>{point}</li>)}
+        </ul>
+      )}
+
+      {ctaId && (
+        <div class="card__actions">
+          <WhatsAppButton ctaId={ctaId as any} position="section" />
+        </div>
+      )}
+    </aside>
+  </div>
+</section>

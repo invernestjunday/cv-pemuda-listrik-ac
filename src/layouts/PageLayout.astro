@@ -4,6 +4,8 @@ import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
 import FloatingWhatsApp from "../components/layout/FloatingWhatsApp.astro";
 import MobileBottomCTA from "../components/layout/MobileBottomCTA.astro";
+import Hero from "../components/sections/Hero.astro";
+import SectionRenderer from "../components/sections/SectionRenderer.astro";
 import type { PageData } from "../data/types";
 
 interface Props {
@@ -17,15 +19,15 @@ const { page } = Astro.props;
   <Header />
 
   <main id="main-content">
-    <slot>
-      <section class="section hero-skeleton">
-        <div class="container hero-skeleton__content">
-          {page.hero.badge && <p class="hero-skeleton__badge">{page.hero.badge}</p>}
-          <h1>{page.hero.h1}</h1>
-          <p>{page.hero.subheadline}</p>
-        </div>
-      </section>
-    </slot>
+    <Hero
+      hero={page.hero}
+      pageType={page.type}
+      serviceType={page.serviceType}
+      area={page.area}
+      breadcrumb={page.breadcrumb}
+    />
+
+    <SectionRenderer sections={page.sections} />
   </main>
 
   <Footer />

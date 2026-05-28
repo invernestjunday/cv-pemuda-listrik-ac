@@ -1,0 +1,15 @@
+---
+import type { StepItem } from "../../data/types";
+
+interface Props {
+  step: StepItem;
+}
+
+const { step } = Astro.props;
+---
+
+<article class="card step-card">
+  <span class="step-card__number" aria-hidden="true">{step.number}</span>
+  <h3 class="card__title">{step.title}</h3>
+  <p class="card__description">{step.description}</p>
+</article>

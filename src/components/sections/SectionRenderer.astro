@@ -1,0 +1,50 @@
+---
+import type { PageSection } from "../../data/types";
+
+import ServiceSummary from "./ServiceSummary.astro";
+import ProblemGrid from "./ProblemGrid.astro";
+import CategoryGrid from "./CategoryGrid.astro";
+import LocationTypeCards from "./LocationTypeCards.astro";
+import EducationSplit from "./EducationSplit.astro";
+import ConsultationSteps from "./ConsultationSteps.astro";
+import AreaCards from "./AreaCards.astro";
+import TrustGrid from "./TrustGrid.astro";
+import FAQAccordion from "./FAQAccordion.astro";
+import CTASection from "./CTASection.astro";
+import InternalLinks from "./InternalLinks.astro";
+
+interface Props {
+  sections: PageSection[];
+}
+
+const { sections } = Astro.props;
+---
+
+{sections.map((section) => {
+  switch (section.type) {
+    case "service-summary":
+      return <ServiceSummary {...section} />;
+    case "problem-grid":
+      return <ProblemGrid {...section} />;
+    case "category-grid":
+      return <CategoryGrid {...section} />;
+    case "location-type-cards":
+      return <LocationTypeCards {...section} />;
+    case "education-split":
+      return <EducationSplit {...section} />;
+    case "consultation-steps":
+      return <ConsultationSteps {...section} />;
+    case "area-cards":
+      return <AreaCards {...section} />;
+    case "trust-grid":
+      return <TrustGrid {...section} />;
+    case "faq":
+      return <FAQAccordion {...section} />;
+    case "cta":
+      return <CTASection {...section} />;
+    case "internal-links":
+      return <InternalLinks {...section} />;
+    default:
+      return null;
+  }
+})}

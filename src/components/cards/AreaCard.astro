@@ -1,0 +1,23 @@
+---
+import type { AreaCardData } from "../../data/types";
+
+interface Props {
+  item: AreaCardData;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="card">
+  <span class="card__icon" aria-hidden="true">{item.icon ?? "⌖"}</span>
+  <h3 class="card__title">{item.name}</h3>
+  <p class="card__description">{item.description}</p>
+
+  {item.links.length > 0 && (
+    <div class="card__links">
+      {item.links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </div>
+  )}
+</article>

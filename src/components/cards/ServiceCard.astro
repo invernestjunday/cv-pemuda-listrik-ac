@@ -1,0 +1,26 @@
+---
+import type { ServiceSummaryCardData } from "../../data/types";
+import WhatsAppButton from "../ui/WhatsAppButton.astro";
+import ButtonLink from "../ui/ButtonLink.astro";
+
+interface Props {
+  item: ServiceSummaryCardData;
+}
+
+const { item } = Astro.props;
+---
+
+<article class="card service-card">
+  <span class="card__icon" aria-hidden="true">{item.icon ?? "•"}</span>
+  <h3 class="card__title">{item.title}</h3>
+  <p class="card__description">{item.description}</p>
+
+  <div class="card__actions">
+    <WhatsAppButton ctaId={item.primaryCtaId as any} position="section" />
+    <ButtonLink
+      href={item.secondaryLink.href}
+      label={item.secondaryLink.label}
+      variant="secondary"
+    />
+  </div>
+</article>

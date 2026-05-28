@@ -1,0 +1,23 @@
+---
+import type { LocationTypeCardData } from "../../data/types";
+import SectionHeader from "../ui/SectionHeader.astro";
+import LocationTypeCard from "../cards/LocationTypeCard.astro";
+
+interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  items: LocationTypeCardData[];
+}
+
+const { id, title, description, items } = Astro.props;
+---
+
+<section class="section section--white" id={id}>
+  <div class="container">
+    <SectionHeader title={title} description={description} />
+    <div class="grid grid--2">
+      {items.map((item) => <LocationTypeCard item={item} />)}
+    </div>
+  </div>
+</section>

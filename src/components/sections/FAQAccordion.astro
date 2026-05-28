@@ -1,0 +1,74 @@
+---
+import type { FaqItem } from "../../data/types";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+interface Props {
+  id?: string;
+  title: string;
+  description?: string;
+  faq: FaqItem[];
+}
+
+const { id, title, description, faq } = Astro.props;
+---
+
+<section class="section section--muted" id={id}>
+  <div class="container">
+    <SectionHeader title={title} description={description} />
+
+    <div class="faq-list">
+      {faq.map((item, index) => {
+        const buttonId = `${id ?? "faq"}-button-${index + 1}`;
+        const panelId = `${id ?? "faq"}-panel-${index + 1}`;
+
+        return (
+          <div class="faq-item">
+            <button
+              type="button"
+              class="faq-button"
+              id={buttonId}
+              aria-expanded="false"
+              aria-controls={panelId}
+            >
+              <span>{item.question}</span>
+              <span class="faq-button__icon" aria-hidden="true">+</span>
+            </button>
+
+            <div
+              id={panelId}
+              class="faq-panel"
+              aria-labelledby={buttonId}
+              hidden
+            >
+              <p>{item.answer}</p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const button = target.closest(".faq-button");
+    if (!button) return;
+
+    const panelId = button.getAttribute("aria-controls");
+    const panel = panelId ? document.getElementById(panelId) : null;
+    const icon = button.querySelector(".faq-button__icon");
+
+    if (!panel) return;
+
+    const isOpen = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!isOpen));
+    panel.hidden = isOpen;
+
+    if (icon) {
+      icon.textContent = isOpen ? "+" : "−";
+    }
+  });
+</script>
