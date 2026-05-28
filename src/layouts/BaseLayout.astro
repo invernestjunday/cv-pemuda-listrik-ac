@@ -1,22 +1,29 @@
 ---
 import MetaTags from "../components/seo/MetaTags.astro";
+import JsonLd from "../components/seo/JsonLd.astro";
+
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/layout.css";
 import "../styles/components.css";
 import "../styles/utilities.css";
+
 import type { PageData } from "../data/types";
+import { site } from "../data/site";
+import { generatePageSchemas } from "../data/schema";
 
 interface Props {
   page: PageData;
 }
 
 const { page } = Astro.props;
+const schemas = generatePageSchemas(page, site);
 ---
 
 <html lang="id">
   <head>
     <MetaTags seo={page.seo} />
+    <JsonLd schemas={schemas} />
   </head>
   <body data-page-type={page.type} class="has-mobile-bottom-cta">
     <slot />

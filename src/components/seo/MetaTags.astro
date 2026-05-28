@@ -1,16 +1,38 @@
 ---
 import type { SeoMeta } from "../../data/types";
+import { site } from "../../data/site";
+import { absoluteUrl } from "../../utils/seo";
 
 interface Props {
   seo: SeoMeta;
 }
 
 const { seo } = Astro.props;
+
+const ogImage = absoluteUrl(seo.ogImage ?? site.defaultOgImage);
+const robots = seo.robots ?? "index, follow";
 ---
 
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
+
 <title>{seo.title}</title>
 <meta name="description" content={seo.description} />
 <link rel="canonical" href={seo.canonical} />
-<meta name="robots" content={seo.robots ?? "index, follow"} />
+<meta name="robots" content={robots} />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.siteName} />
+<meta property="og:title" content={seo.title} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:url" content={seo.canonical} />
+<meta property="og:image" content={ogImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={seo.title} />
+<meta name="twitter:description" content={seo.description} />
+<meta name="twitter:image" content={ogImage} />
+
+<link rel="icon" href="/favicon/icon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/site.webmanifest" />
+<meta name="theme-color" content="#2563eb" />

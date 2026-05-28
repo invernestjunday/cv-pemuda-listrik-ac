@@ -1,72 +1,68 @@
-import type { CtaConfig, PageData, PageSection } from "../data/types";
+import { site } from "../data/site";
+import type {
+  CtaConfig,
+  LinkItem,
+  PageData,
+  PageSection
+} from "../data/types";
 
-function validateInternalLink(href: string, pageSlug: string, context: string) {
-  if (!href.startsWith("/") || href.startsWith("//")) return;
-  if (href === "/") return;
+function normalizeBaseUrl() {
+  return site.baseUrl.endsWith("/") ? site.baseUrl.slice(0, -1) : site.baseUrl;
+}
 
-  const hashIndex = href.indexOf("#");
-  const pathOnly = hashIndex >= 0 ? href.slice(0, hashIndex) : href;
+function expectedCanonical(slug: string) {
+  if (slug === "/") return `${normalizeBaseUrl()}/`;
+  return `${normalizeBaseUrl()}${slug}`;
+}
 
-  if (pathOnly && !pathOnly.endsWith("/")) {
+function isExternalOrAnchor(href: string) {
+  return (
+    href.startsWith("#") ||
+    href.startsWith("http://") ||
+    href.startsWith("https://") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:")
+  );
+}
+
+function validateInternalLink(href: string, context: string) {
+  if (isExternalOrAnchor(href)) return;
+
+  if (!href.startsWith("/")) {
+    throw new Error(`Internal link harus diawali "/": ${context} -> ${href}`);
+  }
+
+  if (!href.endsWith("/")) {
     throw new Error(
-      `Internal link harus memakai trailing slash di ${pageSlug} (${context}): ${href}`
+      `Internal link harus memakai trailing slash: ${context} -> ${href}`
     );
   }
 }
 
-function validateSectionCtas(
-  pageSlug: string,
-  section: PageSection,
-  ctas: Record<string, CtaConfig>
-) {
-  if (section.type === "cta" && !ctas[section.primaryCtaId]) {
-    throw new Error(
-      `CTA section tidak ditemukan di ${pageSlug}: ${section.primaryCtaId}`
-    );
+function collectSectionLinks(section: PageSection): LinkItem[] {
+  const links: LinkItem[] = [];
+
+  if (section.type === "internal-links") {
+    links.push(...section.links);
+  }
+
+  if (section.type === "cta" && section.secondaryLink) {
+    links.push(section.secondaryLink);
   }
 
   if (section.type === "service-summary") {
     for (const service of section.services) {
-      if (!ctas[service.primaryCtaId]) {
-        throw new Error(
-          `CTA service-summary tidak ditemukan di ${pageSlug}: ${service.primaryCtaId}`
-        );
-      }
-      validateInternalLink(service.secondaryLink.href, pageSlug, "service-summary");
-    }
-  }
-
-  if (section.type === "education-split" && section.ctaId) {
-    if (!ctas[section.ctaId]) {
-      throw new Error(
-        `CTA education-split tidak ditemukan di ${pageSlug}: ${section.ctaId}`
-      );
-    }
-  }
-}
-
-function validateSectionLinks(pageSlug: string, section: PageSection) {
-  if (section.type === "internal-links") {
-    for (const link of section.links) {
-      validateInternalLink(link.href, pageSlug, "internal-links");
+      links.push(service.secondaryLink);
     }
   }
 
   if (section.type === "area-cards") {
     for (const area of section.areas) {
-      for (const link of area.links) {
-        validateInternalLink(link.href, pageSlug, "area-cards");
-      }
+      links.push(...area.links);
     }
   }
 
-  if (section.type === "cta" && section.secondaryLink) {
-    validateInternalLink(section.secondaryLink.href, pageSlug, "cta secondaryLink");
-  }
-}
-
-function hasSection(page: PageData, type: PageSection["type"]) {
-  return page.sections.some((section) => section.type === type);
+  return links;
 }
 
 export function validatePageData(
@@ -94,8 +90,12 @@ export function validatePageData(
       throw new Error(`SEO metadata belum lengkap: ${page.slug}`);
     }
 
-    if (!page.seo.canonical.startsWith("https://")) {
-      throw new Error(`Canonical harus absolute HTTPS: ${page.slug}`);
+    if (page.seo.canonical !== expectedCanonical(page.slug)) {
+      throw new Error(
+        `Canonical tidak sesuai slug: ${page.slug}. Expected ${expectedCanonical(
+          page.slug
+        )}, got ${page.seo.canonical}`
+      );
     }
 
     if (page.seo.canonical.includes("domain-anda.com")) {
@@ -113,7 +113,10 @@ export function validatePageData(
     }
 
     if (page.hero.secondaryCta) {
-      validateInternalLink(page.hero.secondaryCta.href, page.slug, "hero secondaryCta");
+      validateInternalLink(
+        page.hero.secondaryCta.href,
+        `${page.slug} hero.secondaryCta`
+      );
     }
 
     if (page.slug !== "/" && (!page.breadcrumb || page.breadcrumb.length === 0)) {
@@ -122,8 +125,12 @@ export function validatePageData(
 
     if (page.breadcrumb) {
       for (const item of page.breadcrumb) {
-        validateInternalLink(item.href, page.slug, "breadcrumb");
+        validateInternalLink(item.href, `${page.slug} breadcrumb`);
       }
+    }
+
+    if (page.sections.length === 0) {
+      throw new Error(`Sections kosong: ${page.slug}`);
     }
 
     if (page.schema.faq && (!page.faq || page.faq.length === 0)) {
@@ -143,23 +150,25 @@ export function validatePageData(
       throw new Error(`Service schema aktif tetapi serviceType kosong: ${page.slug}`);
     }
 
-    if (page.sections.length === 0) {
-      throw new Error(`Halaman wajib punya sections: ${page.slug}`);
+    if (page.schema.aboutPage && page.type !== "about") {
+      throw new Error(`AboutPage schema hanya untuk halaman about: ${page.slug}`);
     }
 
-    if (page.type === "service" && !page.serviceType) {
-      throw new Error(`Halaman service wajib punya serviceType: ${page.slug}`);
+    if (page.schema.contactPage && page.type !== "contact") {
+      throw new Error(`ContactPage schema hanya untuk halaman contact: ${page.slug}`);
     }
 
-    for (const section of page.sections) {
-      if (section.type === "faq" && section.faq.length === 0) {
-        throw new Error(`Section FAQ kosong: ${page.slug}`);
-      }
+    if (page.schema.website && page.slug !== "/") {
+      throw new Error(`WebSite schema hanya dipasang di Beranda: ${page.slug}`);
+    }
+
+    if (page.schema.localBusiness && page.slug !== "/") {
+      throw new Error(`LocalBusiness schema hanya dipasang di Beranda: ${page.slug}`);
     }
 
     if (page.type === "local-service") {
       if (!page.area || !page.areaId) {
-        throw new Error(`Halaman lokal belum punya area lengkap: ${page.slug}`);
+        throw new Error(`Halaman lokal belum punya area: ${page.slug}`);
       }
 
       if (!page.serviceType) {
@@ -178,32 +187,49 @@ export function validatePageData(
         throw new Error(`FAQ lokal minimal 5 item: ${page.slug}`);
       }
 
-      if (!hasSection(page, "internal-links")) {
-        throw new Error(`Halaman lokal wajib punya internal-links: ${page.slug}`);
-      }
+      const hasInternalLinks = page.sections.some(
+        (section) => section.type === "internal-links"
+      );
 
-      if (!hasSection(page, "cta")) {
-        throw new Error(`Halaman lokal wajib punya CTA section: ${page.slug}`);
-      }
-
-      if (!hasSection(page, "problem-grid") || !hasSection(page, "category-grid")) {
-        throw new Error(
-          `Halaman lokal wajib punya problem-grid dan category-grid: ${page.slug}`
-        );
-      }
-
-      if (page.serviceType === "electric" && !page.hero.primaryCtaId.startsWith("electric")) {
-        throw new Error(`CTA hero listrik lokal tidak sesuai: ${page.slug}`);
-      }
-
-      if (page.serviceType === "ac" && !page.hero.primaryCtaId.startsWith("ac")) {
-        throw new Error(`CTA hero AC lokal tidak sesuai: ${page.slug}`);
+      if (!hasInternalLinks) {
+        throw new Error(`Halaman lokal wajib punya internal links: ${page.slug}`);
       }
     }
 
     for (const section of page.sections) {
-      validateSectionCtas(page.slug, section, ctas);
-      validateSectionLinks(page.slug, section);
+      if (section.type === "cta" && !ctas[section.primaryCtaId]) {
+        throw new Error(
+          `CTA section tidak ditemukan di ${page.slug}: ${section.primaryCtaId}`
+        );
+      }
+
+      if (section.type === "service-summary") {
+        for (const service of section.services) {
+          if (!ctas[service.primaryCtaId]) {
+            throw new Error(
+              `CTA service-summary tidak ditemukan di ${page.slug}: ${service.primaryCtaId}`
+            );
+          }
+        }
+      }
+
+      if (section.type === "education-split" && section.ctaId) {
+        if (!ctas[section.ctaId]) {
+          throw new Error(
+            `CTA education-split tidak ditemukan di ${page.slug}: ${section.ctaId}`
+          );
+        }
+      }
+
+      if (section.type === "faq") {
+        if (!section.faq || section.faq.length === 0) {
+          throw new Error(`Section FAQ kosong: ${page.slug}`);
+        }
+      }
+
+      for (const link of collectSectionLinks(section)) {
+        validateInternalLink(link.href, `${page.slug} section:${section.id}`);
+      }
     }
   }
 }

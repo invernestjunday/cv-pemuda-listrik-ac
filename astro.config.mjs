@@ -1,8 +1,10 @@
 import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://github.com/invernestjunday/cv-pemuda-listrik-ac.git",
+  site: "https://invernestjunday.github.io",
   base: "/cv-pemuda-listrik-ac",
   trailingSlash: "always",
   output: "static",
+  integrations: [sitemap()]
 });
