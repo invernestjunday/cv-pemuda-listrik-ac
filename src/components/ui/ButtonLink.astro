@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../../utils/link";
+
 interface Props {
   href: string;
   label: string;
@@ -10,6 +12,6 @@ const { href, label, variant = "secondary", className = "" } = Astro.props;
 const variantClass = variant === "brand" ? "btn--brand" : "btn--secondary";
 ---
 
-<a href={href} class={`btn ${variantClass} ${className}`}>
+<a href={withBase(href)} class={`btn ${variantClass} ${className}`}>
   {label}
 </a>

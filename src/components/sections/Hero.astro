@@ -9,6 +9,7 @@ import type {
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
 import ButtonLink from "../ui/ButtonLink.astro";
 import Badge from "../ui/Badge.astro";
+import { withBase } from "../../utils/link";
 
 interface Props {
   hero: HeroData;
@@ -35,7 +36,7 @@ const visualLabel = area ?? "Jakarta • Tangerang Selatan • Tangerang Kota";
                 {index === breadcrumb.length - 1 ? (
                   <span aria-current="page">{item.label}</span>
                 ) : (
-                  <a href={item.href}>{item.label}</a>
+                  <a href={withBase(item.href)}>{item.label}</a>
                 )}
               </li>
             ))}

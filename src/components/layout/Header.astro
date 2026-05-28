@@ -2,11 +2,12 @@
 import { mainNav } from "../../data/navigation";
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
 import MobileMenu from "./MobileMenu.astro";
+import { withBase } from "../../utils/link";
 ---
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a href="/" class="site-brand" aria-label="CV Pemuda Listrik & AC - Beranda">
+    <a href={withBase("/")} class="site-brand" aria-label="CV Pemuda Listrik & AC - Beranda">
       CV Pemuda Listrik & AC
     </a>
 
@@ -26,12 +27,12 @@ import MobileMenu from "./MobileMenu.astro";
             </button>
             <div id={dropdownId} class="nav-dropdown__panel" hidden>
               {item.children.map((child) => (
-                <a href={child.href}>{child.label}</a>
+                <a href={withBase(child.href)}>{child.label}</a>
               ))}
             </div>
           </div>
         ) : (
-          <a href={item.href}>{item.label}</a>
+          <a href={withBase(item.href)}>{item.label}</a>
         );
       })}
     </nav>

@@ -1,5 +1,6 @@
 ---
 import type { BreadcrumbItem } from "../../data/types";
+import { withBase } from "../../utils/link";
 
 interface Props {
   items?: BreadcrumbItem[];
@@ -17,7 +18,7 @@ const { items = [] } = Astro.props;
           {index === items.length - 1 ? (
             <span aria-current="page">{item.label}</span>
           ) : (
-            <a href={item.href}>{item.label}</a>
+            <a href={withBase(item.href)}>{item.label}</a>
           )}
         </li>
       ))}

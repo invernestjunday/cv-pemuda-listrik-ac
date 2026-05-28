@@ -1,5 +1,6 @@
 ---
 import type { AreaCardData } from "../../data/types";
+import { withBase } from "../../utils/link";
 
 interface Props {
   item: AreaCardData;
@@ -16,7 +17,7 @@ const { item } = Astro.props;
   {item.links.length > 0 && (
     <div class="card__links">
       {item.links.map((link) => (
-        <a href={link.href}>{link.label}</a>
+        <a href={withBase(link.href)}>{link.label}</a>
       ))}
     </div>
   )}

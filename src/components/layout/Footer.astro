@@ -2,6 +2,7 @@
 import { site } from "../../data/site";
 import { footerNav } from "../../data/navigation";
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
+import { withBase } from "../../utils/link";
 ---
 
 <footer class="site-footer">
@@ -23,7 +24,7 @@ import WhatsAppButton from "../ui/WhatsAppButton.astro";
         <h3 class="site-footer__title">{group.title}</h3>
         <ul class="site-footer__links">
           {group.links.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
+            <li><a href={withBase(link.href)}>{link.label}</a></li>
           ))}
         </ul>
       </nav>

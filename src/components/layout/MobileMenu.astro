@@ -1,6 +1,7 @@
 ---
 import { mainNav } from "../../data/navigation";
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
+import { withBase } from "../../utils/link";
 ---
 
 <nav id="mobile-menu" class="mobile-menu" aria-label="Navigasi mobile" hidden>
@@ -11,13 +12,13 @@ import WhatsAppButton from "../ui/WhatsAppButton.astro";
           <>
             <p class="mobile-menu__label">{item.label}</p>
             {item.children.map((child) => (
-              <a href={child.href} class="mobile-menu__link">
+              <a href={withBase(child.href)} class="mobile-menu__link">
                 {child.label}
               </a>
             ))}
           </>
         ) : (
-          <a href={item.href} class="mobile-menu__link">
+          <a href={withBase(item.href)} class="mobile-menu__link">
             {item.label}
           </a>
         )}

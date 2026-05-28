@@ -2,6 +2,7 @@
 import type { SeoMeta } from "../../data/types";
 import { site } from "../../data/site";
 import { absoluteUrl } from "../../utils/seo";
+import { withBase } from "../../utils/link";
 
 interface Props {
   seo: SeoMeta;
@@ -33,6 +34,6 @@ const robots = seo.robots ?? "index, follow";
 <meta name="twitter:description" content={seo.description} />
 <meta name="twitter:image" content={ogImage} />
 
-<link rel="icon" href="/favicon/icon.svg" type="image/svg+xml" />
-<link rel="manifest" href="/site.webmanifest" />
+<link rel="icon" href={withBase("/favicon/icon.svg")} type="image/svg+xml" />
+<link rel="manifest" href={withBase("/site.webmanifest")} />
 <meta name="theme-color" content="#2563eb" />
