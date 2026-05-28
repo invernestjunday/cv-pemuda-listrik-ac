@@ -1,5 +1,6 @@
 ---
 import type { CardItem } from "../../data/types";
+import Icon from "../ui/Icon.astro";
 
 interface Props {
   item: CardItem;
@@ -9,7 +10,7 @@ const { item } = Astro.props;
 ---
 
 <article class="card">
-  <span class="card__icon" aria-hidden="true">{item.icon ?? "✓"}</span>
+  <span class="card__icon" aria-hidden="true"><Icon name={item.icon} /></span>
   <h3 class="card__title">{item.title}</h3>
   <p class="card__description">{item.description}</p>
 </article>

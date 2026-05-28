@@ -8,7 +8,17 @@ import { withBase } from "../../utils/link";
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <div>
-      <h2 class="site-footer__title">{site.siteName}</h2>
+      <div class="site-footer__brand">
+        <img
+          class="site-footer__logo"
+          src={withBase(site.logo)}
+          alt=""
+          width="48"
+          height="48"
+          loading="lazy"
+        />
+        <h2 class="site-footer__title">{site.siteName}</h2>
+      </div>
       <p class="site-footer__text">
         Jasa listrik dan AC panggilan untuk rumah, ruko, toko, kantor kecil,
         kos, kontrakan, dan apartemen di Jakarta, Tangerang Selatan, dan

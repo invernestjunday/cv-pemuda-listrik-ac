@@ -1,6 +1,7 @@
 ---
 import { ctas, type CtaId } from "../../data/cta";
 import { createWhatsappLink } from "../../utils/whatsapp";
+import Icon from "./Icon.astro";
 
 type CtaPosition =
   | "header"
@@ -36,6 +37,6 @@ const label = labelOverride ?? cta.label;
   data-destination="whatsapp"
   data-tracking-name={cta.trackingName}
 >
-  <span class="btn__icon" aria-hidden="true">WA</span>
+  <Icon name="whatsapp" className="btn__svg" />
   <span>{label}</span>
 </a>

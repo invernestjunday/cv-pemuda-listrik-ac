@@ -3,8 +3,8 @@
   "short_name": "CV Pemuda",
   "icons": [
     {
-      "src": "/favicon/icon.svg",
-      "sizes": "64x64",
+      "src": "favicon/icon.svg",
+      "sizes": "any",
       "type": "image/svg+xml"
     }
   ],

@@ -1,4 +1,5 @@
 ---
+import { site } from "../../data/site";
 import { mainNav } from "../../data/navigation";
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
 import MobileMenu from "./MobileMenu.astro";
@@ -8,7 +9,15 @@ import { withBase } from "../../utils/link";
 <header class="site-header">
   <div class="container site-header__inner">
     <a href={withBase("/")} class="site-brand" aria-label="CV Pemuda Listrik & AC - Beranda">
-      CV Pemuda Listrik & AC
+      <img
+        class="site-brand__logo"
+        src={withBase(site.logo)}
+        alt=""
+        width="44"
+        height="44"
+        loading="eager"
+      />
+      <span class="site-brand__text">CV Pemuda Listrik & AC</span>
     </a>
 
     <nav class="desktop-nav" aria-label="Navigasi utama">

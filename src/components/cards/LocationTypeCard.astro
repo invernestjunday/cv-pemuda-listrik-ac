@@ -1,15 +1,17 @@
 ---
 import type { LocationTypeCardData } from "../../data/types";
+import Icon from "../ui/Icon.astro";
 
 interface Props {
   item: LocationTypeCardData;
 }
 
 const { item } = Astro.props;
+const iconName = item.icon === "⌂" ? "home" : item.icon === "□" ? "building" : item.icon;
 ---
 
 <article class="card">
-  <span class="card__icon" aria-hidden="true">{item.icon ?? "⌂"}</span>
+  <span class="card__icon" aria-hidden="true"><Icon name={iconName} /></span>
   <h3 class="card__title">{item.title}</h3>
   <p class="card__description">{item.description}</p>
 

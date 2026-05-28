@@ -1,5 +1,6 @@
 ---
 import type { CategoryItem, ServiceType } from "../../data/types";
+import Icon from "../ui/Icon.astro";
 
 interface Props {
   item: CategoryItem;
@@ -11,7 +12,7 @@ const iconClass = serviceType === "ac" ? "card__icon card__icon--ac" : "card__ic
 ---
 
 <article class="card">
-  <span class={iconClass} aria-hidden="true">{item.icon ?? "•"}</span>
+  <span class={iconClass} aria-hidden="true"><Icon name={item.icon} /></span>
   <h3 class="card__title">{item.title}</h3>
   <p class="card__description">{item.description}</p>
 

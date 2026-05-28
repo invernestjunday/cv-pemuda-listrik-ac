@@ -9,6 +9,7 @@ import type {
 import WhatsAppButton from "../ui/WhatsAppButton.astro";
 import ButtonLink from "../ui/ButtonLink.astro";
 import Badge from "../ui/Badge.astro";
+import Icon from "../ui/Icon.astro";
 import { withBase } from "../../utils/link";
 
 interface Props {
@@ -22,6 +23,7 @@ interface Props {
 const { hero, pageType, serviceType, area, breadcrumb } = Astro.props;
 const isAc = serviceType === "ac";
 const visualLabel = area ?? "Jakarta • Tangerang Selatan • Tangerang Kota";
+const heroIcon = isAc ? "snowflake" : serviceType === "electric" ? "zap" : "tool";
 ---
 
 <section class={`hero ${isAc ? "hero--ac" : ""}`} data-page-type={pageType}>
@@ -67,7 +69,9 @@ const visualLabel = area ?? "Jakarta • Tangerang Selatan • Tangerang Kota";
 
     <div class="hero__visual" aria-hidden="true">
       <div class="hero__visual-card">
-        <span class="hero__visual-icon">{isAc ? "AC" : "⚡"}</span>
+        <span class="hero__visual-icon">
+          <Icon name={heroIcon} />
+        </span>
         <p>{visualLabel}</p>
       </div>
     </div>
