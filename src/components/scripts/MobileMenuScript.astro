@@ -1,0 +1,52 @@
+<script>
+  (() => {
+    const menuToggle = document.querySelector(".mobile-menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    function closeMobileMenu() {
+      if (!menuToggle || !mobileMenu) return;
+
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Buka menu navigasi");
+      mobileMenu.hidden = true;
+    }
+
+    function openMobileMenu() {
+      if (!menuToggle || !mobileMenu) return;
+
+      menuToggle.setAttribute("aria-expanded", "true");
+      menuToggle.setAttribute("aria-label", "Tutup menu navigasi");
+      mobileMenu.hidden = false;
+    }
+
+    if (menuToggle && mobileMenu) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+
+        if (isOpen) {
+          closeMobileMenu();
+        } else {
+          openMobileMenu();
+        }
+      });
+
+      mobileMenu.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const link = target.closest("a");
+        if (link) {
+          closeMobileMenu();
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+          closeMobileMenu();
+          if (isOpen) menuToggle.focus();
+        }
+      });
+    }
+  })();
+</script>

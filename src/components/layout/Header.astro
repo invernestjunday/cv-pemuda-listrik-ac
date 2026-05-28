@@ -11,17 +11,20 @@ import MobileMenu from "./MobileMenu.astro";
     </a>
 
     <nav class="desktop-nav" aria-label="Navigasi utama">
-      {mainNav.map((item) => (
-        item.children ? (
-          <div class="nav-dropdown">
+      {mainNav.map((item) => {
+        const dropdownId = `dropdown-${item.label.toLowerCase().replace(/\s+/g, "-")}`;
+
+        return item.children ? (
+          <div class="nav-dropdown" data-dropdown>
             <button
               type="button"
               class="nav-dropdown__trigger"
               aria-expanded="false"
+              aria-controls={dropdownId}
             >
               {item.label}
             </button>
-            <div class="nav-dropdown__panel">
+            <div id={dropdownId} class="nav-dropdown__panel" hidden>
               {item.children.map((child) => (
                 <a href={child.href}>{child.label}</a>
               ))}
@@ -29,8 +32,8 @@ import MobileMenu from "./MobileMenu.astro";
           </div>
         ) : (
           <a href={item.href}>{item.label}</a>
-        )
-      ))}
+        );
+      })}
     </nav>
 
     <div class="desktop-cta">
@@ -59,22 +62,3 @@ import MobileMenu from "./MobileMenu.astro";
 
   <MobileMenu />
 </header>
-
-<script>
-  const toggle = document.querySelector(".mobile-menu-toggle");
-  const menu = document.getElementById("mobile-menu");
-
-  if (toggle && menu) {
-    toggle.addEventListener("click", () => {
-      const isOpen = toggle.getAttribute("aria-expanded") === "true";
-
-      toggle.setAttribute("aria-expanded", String(!isOpen));
-      toggle.setAttribute(
-        "aria-label",
-        isOpen ? "Buka menu navigasi" : "Tutup menu navigasi"
-      );
-
-      menu.hidden = isOpen;
-    });
-  }
-</script>

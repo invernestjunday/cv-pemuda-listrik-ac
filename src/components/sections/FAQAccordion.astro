@@ -29,6 +29,7 @@ const { id, title, description, faq } = Astro.props;
               id={buttonId}
               aria-expanded="false"
               aria-controls={panelId}
+              data-faq-button
             >
               <span>{item.question}</span>
               <span class="faq-button__icon" aria-hidden="true">+</span>
@@ -48,27 +49,3 @@ const { id, title, description, faq } = Astro.props;
     </div>
   </div>
 </section>
-
-<script>
-  document.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-
-    const button = target.closest(".faq-button");
-    if (!button) return;
-
-    const panelId = button.getAttribute("aria-controls");
-    const panel = panelId ? document.getElementById(panelId) : null;
-    const icon = button.querySelector(".faq-button__icon");
-
-    if (!panel) return;
-
-    const isOpen = button.getAttribute("aria-expanded") === "true";
-    button.setAttribute("aria-expanded", String(!isOpen));
-    panel.hidden = isOpen;
-
-    if (icon) {
-      icon.textContent = isOpen ? "+" : "−";
-    }
-  });
-</script>

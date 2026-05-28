@@ -723,3 +723,29 @@
     align-items: center;
   }
 }
+
+/* Build Pack 8 — interaction, accessibility, and tracking polish */
+.nav-dropdown__panel:not([hidden]) {
+  display: grid;
+}
+
+.nav-dropdown__panel[hidden],
+.mobile-menu[hidden],
+.faq-panel[hidden] {
+  display: none !important;
+}
+
+.nav-dropdown__trigger:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.faq-button:focus-visible,
+.btn:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 3px;
+}
+
+.nav-dropdown__trigger,
+.faq-button,
+.mobile-menu-toggle,
+.mobile-menu__link {
+  min-height: 2.75rem;
+}

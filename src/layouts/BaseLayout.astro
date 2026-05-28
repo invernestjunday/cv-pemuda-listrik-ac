@@ -2,6 +2,11 @@
 import MetaTags from "../components/seo/MetaTags.astro";
 import JsonLd from "../components/seo/JsonLd.astro";
 
+import MobileMenuScript from "../components/scripts/MobileMenuScript.astro";
+import DropdownScript from "../components/scripts/DropdownScript.astro";
+import FaqAccordionScript from "../components/scripts/FaqAccordionScript.astro";
+import CtaTracking from "../components/scripts/CtaTracking.astro";
+
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/layout.css";
@@ -27,5 +32,10 @@ const schemas = generatePageSchemas(page, site);
   </head>
   <body data-page-type={page.type} class="has-mobile-bottom-cta">
     <slot />
+
+    <MobileMenuScript />
+    <DropdownScript />
+    <FaqAccordionScript />
+    <CtaTracking />
   </body>
 </html>

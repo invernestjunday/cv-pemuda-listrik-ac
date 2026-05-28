@@ -1,0 +1,24 @@
+<script>
+  (() => {
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const link = target.closest("[data-destination='whatsapp']");
+      if (!link) return;
+
+      window["dataLayer"] = window["dataLayer"] || [];
+
+      window["dataLayer"].push({
+        event: "whatsapp_click",
+        cta_id: link.dataset.ctaId,
+        cta_position: link.dataset.ctaPosition,
+        service_type: link.dataset.serviceType,
+        area: link.dataset.area,
+        destination: link.dataset.destination,
+        page_path: window.location.pathname,
+        page_type: document.body.dataset.pageType || undefined
+      });
+    });
+  })();
+</script>

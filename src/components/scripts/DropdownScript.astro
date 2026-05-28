@@ -1,0 +1,68 @@
+<script>
+  (() => {
+    const dropdowns = document.querySelectorAll("[data-dropdown]");
+
+    function closeDropdown(dropdown) {
+      const trigger = dropdown.querySelector(".nav-dropdown__trigger");
+      const panel = dropdown.querySelector(".nav-dropdown__panel");
+
+      if (!trigger || !panel) return;
+
+      trigger.setAttribute("aria-expanded", "false");
+      panel.hidden = true;
+    }
+
+    function openDropdown(dropdown) {
+      const trigger = dropdown.querySelector(".nav-dropdown__trigger");
+      const panel = dropdown.querySelector(".nav-dropdown__panel");
+
+      if (!trigger || !panel) return;
+
+      dropdowns.forEach((item) => {
+        if (item !== dropdown) closeDropdown(item);
+      });
+
+      trigger.setAttribute("aria-expanded", "true");
+      panel.hidden = false;
+    }
+
+    dropdowns.forEach((dropdown) => {
+      const trigger = dropdown.querySelector(".nav-dropdown__trigger");
+
+      if (!trigger) return;
+
+      trigger.addEventListener("click", () => {
+        const isOpen = trigger.getAttribute("aria-expanded") === "true";
+
+        if (isOpen) {
+          closeDropdown(dropdown);
+        } else {
+          openDropdown(dropdown);
+        }
+      });
+
+      trigger.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          closeDropdown(dropdown);
+          trigger.focus();
+        }
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const activeDropdown = target.closest("[data-dropdown]");
+      if (activeDropdown) return;
+
+      dropdowns.forEach((dropdown) => closeDropdown(dropdown));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        dropdowns.forEach((dropdown) => closeDropdown(dropdown));
+      }
+    });
+  })();
+</script>
